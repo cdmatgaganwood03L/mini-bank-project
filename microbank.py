@@ -61,22 +61,41 @@ class Minkbank:
 
             elif menu_input == 4:
                 update: int = int(input('\nPlease, press 1 to deposit your amount, \nPlease, press 2 to update your name, \nPlease, press 3 to change your password. \n _ _ _\n'))   
-                if update == 1:
-                    deposit_amount: float = float(input("Enter amount to deposit: $"))
-                    self.main_userinfo[self.current_user_id]["balance"] += deposit_amount
-                    print(f"${deposit_amount:.2f} deposited successfully!")
-                    self.save_user_info(self.main_userinfo)
-                elif update == 2:
-                    new_username: str = input("Enter new username: ")
-                    self.main_userinfo[self.current_user_id]["username"] = new_username
-                    self.save_user_info(self.main_userinfo)
-                elif update == 3:
-                    new_password: str = input("Enter new password: ")
-                    self.main_userinfo[self.current_user_id]["password"] = new_password
-                    print("Password changed successfully!")
-                    self.save_user_info(self.main_userinfo)
-                else:
-                    print("Your choice is not valid.")
+                while True:
+                    if update == 1:
+                        deposit_amount: float = float(input("Enter amount to deposit: $"))
+                        self.main_userinfo[self.current_user_id]["balance"] += deposit_amount
+                        print(f"${deposit_amount:.2f} deposited successfully!")
+                        self.save_user_info(self.main_userinfo)
+                    elif update == 2:
+                        new_username: str = input("Enter new username: ")
+                        while True:
+                            if len(new_username) < 3 or len(new_username) > 20:
+                                print("\nUsername must be between 3 and 20 characters.\n")
+                            if not new_username.isalnum():
+                                print("\nUsername must only contain alphanumeric characters.\n")
+                                break
+                            self.main_userinfo[self.current_user_id]["username"] = new_username
+                            self.save_user_info(self.main_userinfo)
+                            break
+                        break
+                    elif update == 3:
+                        new_password: str = input("Enter new password: ")
+                        while True:
+                            if (len(new_password) < 8 or 
+                                not any(char.isdigit() for char in new_password) or 
+                                not any(char.isupper() for char in new_password) or 
+                                not any(char.islower() for char in new_password) or 
+                                not any(char in "!@#$%^&*()-_=+[]{};:,.<>?/" for char in new_password)):
+                                print("\nPassword must be at least 8 characters long.\nIt must include uppercase, lowercase, numbers, and special characters.\n")
+                                break
+                            self.main_userinfo[self.current_user_id]["password"] = new_password
+                            print("Password changed successfully!")
+                            self.save_user_info(self.main_userinfo)
+                            break
+                        break
+                    else:
+                        print("Your choice is not valid.")
 
             elif menu_input == 5:
                 print("\nExiting.......\n")
