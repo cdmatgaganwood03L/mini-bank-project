@@ -67,6 +67,7 @@ class Minkbank:
                         self.main_userinfo[self.current_user_id]["balance"] += deposit_amount
                         print(f"${deposit_amount:.2f} deposited successfully!")
                         self.save_user_info(self.main_userinfo)
+                        break
                     elif update == 2:
                         new_username: str = input("Enter new username: ")
                         while True:

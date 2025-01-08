@@ -1,1 +1,1 @@
-User ID: 1, Username: aung34, Password: okOK34##, Balance: 10000.0
+User ID: 1, Username: aung34, Password: okOK34##, Balance: 30000.0
